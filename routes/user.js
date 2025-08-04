@@ -8,7 +8,32 @@ const { validateRegister, validateLogin } = require('../middleware/validation')
 
 const router = express.Router()
 
-// Register
+/**
+ * @swagger
+ * /api/users/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 format: email
+ *                 example: test@example.com
+ *               password:
+ *                 type: string
+ *                 example: strongpassword
+ *     responses:
+ *       201:
+ *         description: Success
+ *       400:
+ *         description: Invalid input
+ */
 router.post('/register', validateRegister, async (req, res) => {
     try {
         const { username, password } = req.body
@@ -50,7 +75,32 @@ router.post('/register', validateRegister, async (req, res) => {
     }
 })
 
-// LOGIN
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     summary: Login user and get JWT
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 format: email
+ *                 example: test@example.com
+ *               password:
+ *                 type: string
+ *                 example: strongpassword
+ *     responses:
+ *       200:
+ *         description: Success
+ *       401:
+ *         description: Invalid credentials
+ */
 router.post('/login', validateLogin, async (req, res) => {
     try {
         const { username, password } = req.body
@@ -77,7 +127,28 @@ router.post('/login', validateLogin, async (req, res) => {
     }
 })
 
-// FORGOT PWD
+/**
+ * @swagger
+ * /api/users/forgot-password:
+ *   post:
+ *     summary: Send password reset token
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: test@example.com
+ *     responses:
+ *       200:
+ *         description: Token sent
+ *       404:
+ *         description: User not found
+ */
 router.post('/forgot-password', async (req, res) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ error: 'Email is required' })
@@ -109,6 +180,35 @@ router.post('/forgot-password', async (req, res) => {
     }
 })
 
+/**
+ * @swagger
+ * /api/users/reset-password/{token}:
+ *   post:
+ *     summary: Reset password with token
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Password reset token
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 example: newstrongpassword
+ *     responses:
+ *       200:
+ *         description: Password reset
+ *       400:
+ *         description: Invalid or expired token
+ */
 router.post('/reset-password/:token', async (req, res) => {
     const { token } = req.params
     const { newPassword } = req.body
