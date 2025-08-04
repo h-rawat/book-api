@@ -9,20 +9,21 @@ A secure RESTful API for managing a collection of books with user authentication
 ### 1. Clone the Repository
 
 ```git clone <your-repo-url>```
-cd <project-folder>
+```cd book-api```
 
 
 ### 2. Install Dependencies
 
-npm install
-
+```npm install```
 
 ### 3. Configure Environment Variables
 
 Create a `.env` file in the project root with the following (adjust values as needed):
 
+```
 MONGO_URI=mongodb://localhost:27017/bookdb
 JWT_SECRET=your_jwt_secret_here
+```
 
 For Gmail SMTP (example)
 EMAIL_USER=your_email@gmail.com
