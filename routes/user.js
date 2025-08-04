@@ -4,11 +4,12 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const crypto = require('crypto')
 const sendMail = require('../utils/mailer')
+const { validateRegister, validateLogin } = require('../middleware/validation')
 
 const router = express.Router()
 
 // Register
-router.post('/register', async (req, res) => {
+router.post('/register', validateRegister, async (req, res) => {
     try {
         const { username, password } = req.body
 
@@ -50,7 +51,7 @@ router.post('/register', async (req, res) => {
 })
 
 // LOGIN
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     try {
         const { username, password } = req.body
         const user = await User.findOne({ username })

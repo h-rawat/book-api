@@ -1,9 +1,10 @@
 const express = require('express')
 const Book = require('../models/book')
 const router = express.Router()
+const { validateBook } = require('../middleware/validation')
 
 // CREATE a new book
-router.post('/', async (req, res) => {
+router.post('/', validateBook, async (req, res) => {
     try {
         const book = new Book(req.body)
         const savedBook = await book.save()
@@ -46,7 +47,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // UPDATE a book
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateBook, async (req, res) => {
     try {
         const updated = await Book.findByIdAndUpdate(req.params.id, req.body, {
             new: true
