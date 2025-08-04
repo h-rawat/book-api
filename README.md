@@ -8,7 +8,7 @@ A secure RESTful API for managing a collection of books with user authentication
 
 ### 1. Clone the Repository
 
-git clone <your-repo-url>
+```git clone <your-repo-url>```
 cd <project-folder>
 
 
