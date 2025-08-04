@@ -25,10 +25,12 @@ MONGO_URI=mongodb://localhost:27017/bookdb
 JWT_SECRET=your_jwt_secret_here
 ```
 
+```
 For Gmail SMTP (example)
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password
 EMAIL_SERVICE=gmail
+```
 
 - For Gmail, generate an App Password in your Google Account security settings.
 
@@ -37,11 +39,10 @@ EMAIL_SERVICE=gmail
 Make sure MongoDB is running locally, or update `MONGO_URI` if using a cloud MongoDB service like Atlas.
 
 ### 5. Run the Application
-npm start
+```npm start```
 
 Or, if `start` script is not defined:
-node app.js
-
+```node app.js```
 
 ### 6. Access the API and Documentation
 
